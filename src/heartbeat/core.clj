@@ -20,7 +20,11 @@
 (defn check-web [[name url]]
   {:name name
    :status (try
-             (if (http/success? (http/get url)) :up :down)
+             (let [response (http/get url)]
+               (if (or (http/success? response) 
+                       (http/redirect? response))
+                 :up
+                 :down))
              (catch Exception e :down))})
 
 (defn check-service [[name check-fn]]
