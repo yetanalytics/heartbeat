@@ -2,6 +2,14 @@
 
 Expose a heartbeat route for Ring web apps.
 
+## Install
+
+In your project.clj:
+
+````clojure
+[crossref/heartbeat "0.1.1"]
+````
+
 ## Usage
 
 Define some web and service checks:
