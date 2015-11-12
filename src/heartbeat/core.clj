@@ -38,6 +38,7 @@
         service (map check-service (:service @heartbeat-hooks))]
     {:web web
      :service service
+     :hostname (.getCanonicalHostName (java.net.InetAddress/getLocalHost))
      :status (if (-> (filter #(= (:status %) :down) (concat web service))
                      (count)
                      (zero?))
