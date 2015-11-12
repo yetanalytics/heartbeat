@@ -7,7 +7,7 @@ Expose a heartbeat route for Ring web apps.
 In your project.clj:
 
 ````clojure
-[crossref/heartbeat "0.1.1"]
+[crossref/heartbeat "0.1.2"]
 ````
 
 ## Usage
