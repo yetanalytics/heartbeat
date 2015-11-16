@@ -1,4 +1,4 @@
-(defproject crossref/heartbeat "0.1.2"
+(defproject crossref/heartbeat "0.1.3"
   :description "Expose a heartbeat route for Ring web apps."
   :url "http://www.github.com/CrossRef/heartbeat"
   :signing {:gpg-key "labs@crossref.org"}

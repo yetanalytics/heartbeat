@@ -17,6 +17,11 @@
   [name check-fn]
   (swap! heartbeat-hooks assoc-in [:service name] check-fn))
 
+(defn def-version
+  "Set the version reported by heartbeat."
+  [version]
+  (swap! heartbeat-hooks assoc-in [:version] version))
+
 (defn check-web [[name url]]
   {:name name
    :status (try
@@ -38,6 +43,7 @@
         service (map check-service (:service @heartbeat-hooks))]
     {:web web
      :service service
+     :version (-> heartbeat-hooks deref :version)
      :hostname (.getCanonicalHostName (java.net.InetAddress/getLocalHost))
      :status (if (-> (filter #(= (:status %) :down) (concat web service))
                      (count)
