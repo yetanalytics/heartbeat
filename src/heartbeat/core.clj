@@ -45,7 +45,7 @@
      :service service
      :version (-> heartbeat-hooks deref :version)
      :hostname (.getCanonicalHostName (java.net.InetAddress/getLocalHost))
-     :status (if (-> (filter #(= (:status %) :down) (concat web service))
+     :overall-status (if (-> (filter #(= (:status %) :down) (concat web service))
                      (count)
                      (zero?))
                :up
