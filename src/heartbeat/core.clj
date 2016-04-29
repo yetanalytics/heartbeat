@@ -1,5 +1,14 @@
 (ns heartbeat.core
-  (:require [clj-http.client :as http]))
+  (:require [org.httpkit.client :as http]))
+
+;; duplicate helpers from clj-http
+(defn- success?
+  [{:keys [status]}]
+  (<= 200 status 299))
+
+(defn- redirect?
+  [{:keys [status]}]
+  (<= 300 status 399))
 
 (def heartbeat-hooks (atom {}))
 
@@ -25,9 +34,9 @@
 (defn check-web [[name url]]
   {:name name
    :status (try
-             (let [response (http/get url)]
-               (if (or (http/success? response) 
-                       (http/redirect? response))
+             (let [response @(http/get url)]
+               (if (or (success? response)
+                       (redirect? response))
                  :up
                  :down))
              (catch Exception e :down))})
@@ -46,8 +55,7 @@
      :version (-> heartbeat-hooks deref :version)
      :hostname (.getCanonicalHostName (java.net.InetAddress/getLocalHost))
      :overall-status (if (-> (filter #(= (:status %) :down) (concat web service))
-                     (count)
-                     (zero?))
-               :up
-               :down)}))
-
+                             (count)
+                             (zero?))
+                       :up
+                       :down)}))
