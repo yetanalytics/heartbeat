@@ -1,13 +1,13 @@
 # heartbeat
 
-Expose a heartbeat route for Ring web apps.
+Expose a heartbeat route for Ring web apps. This non-canonical version uses http-kit in place of clj-http.
 
 ## Install
 
 In your project.clj:
 
 ````clojure
-[crossref/heartbeat "0.1.2"]
+[crossref/heartbeat "0.1.4"]
 ````
 
 ## Usage
